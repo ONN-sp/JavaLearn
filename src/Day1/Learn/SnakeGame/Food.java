@@ -1,4 +1,4 @@
-package ByteDance.Learn.SnakeGame;
+package Day1.Learn.SnakeGame;
 
 import java.awt.*;
 import java.util.Random;

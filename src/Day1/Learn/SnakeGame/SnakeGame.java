@@ -1,4 +1,4 @@
-package ByteDance.Learn.SnakeGame;
+package Day1.Learn.SnakeGame;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package ByteDance.Learn;
+package Day1.Learn;
 
 public class HelloWorld
 {
