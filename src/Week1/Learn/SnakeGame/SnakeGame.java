@@ -1,4 +1,4 @@
-package Day1.Learn.SnakeGame;
+package Week1.Learn.SnakeGame;
 
 import javax.swing.*;
 import java.awt.*;

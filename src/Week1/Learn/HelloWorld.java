@@ -1,8 +1,8 @@
-package Day1.Learn;
+package Week1.Learn;
 
 public class HelloWorld
 {
-    public static void main( String[] args )
+    static void main(String[] args)
     {
         System.out.println( "Hello World!" );
     }

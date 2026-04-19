@@ -1,4 +1,4 @@
-package Day1.Learn.SnakeGame;
+package Week1.Learn.SnakeGame;
 
 import java.awt.*;
 import java.util.ArrayList;
