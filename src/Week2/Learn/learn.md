@@ -51,3 +51,61 @@
     * if-else
     * if-else if-else
 7. switch语句表达式的数据类型必须为byte, short, char, int, String, enum
+8. switch中的case和default位置可以anywhere。switch的判断是从上往下顺序判断，一旦匹配到就执行，并跳出switch
+9. switch的default是可以省略的
+10. switch的case穿透：case穿透就是switch中匹配好了的case后面的代码还是会继续执行，直到遇到break或者switch结束。具体产生原因：在执行语句体的时候没有看到break
+11. switch的新特性（JDK14正式发布）：
+    * 箭头特性(CPP没有)：不需要break，天生禁止case穿透
+    ```java
+    public class Demo3 {
+    static void main() {
+        int num = 3;
+        switch (num) {
+            case 1 -> System.out.println("星期一");
+            case 2 -> System.out.println("星期二");
+            case 3 -> System.out.println("星期三");
+        }
+    }
+    }
+    ```
+    * case后面可以写多个值
+    * switch可以有运行结果
+    * yield关键字(CPP没有)：这是和switch可以有运行结果一起用的
+    ```java
+    int a = 10;
+    int b = 20;
+    String operator = "*";
+    int result = switch (operator) {
+        case "+" -> {
+            yield
+            a + b;
+        }
+        case "-" -> {
+            yield
+            a - b;
+        }
+        case "*" -> {
+            yield
+            a * b;
+        }
+        case "/" -> {
+            yield
+            a / b;
+        }
+        default -> 0;
+    };// !!!
+    System.out.println(result);
+    // 如果该case语句体只有一行，即大括号和yield都可以省略
+        int a = 10;
+    int b = 20;
+    String operator = "*";
+    int result = switch (operator) {
+        case "+" -> a + b;
+        case "-" -> a - b;
+        case "*" -> a * b;
+        case "/" -> a / b;
+        default -> 0;
+    };
+    System.out.println(result);
+    ```
+12. java的for循环和CPP一样
