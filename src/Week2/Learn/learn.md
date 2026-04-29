@@ -109,3 +109,20 @@
     System.out.println(result);
     ```
 12. java的for循环和CPP一样
+13. java里面没有<=>运算符，CPP20新增了的
+14. java里面没有对基本类型进行引用的类型，即不能对基本类型进行引用传递。CPP里是可以的，如int &a；但是java是没有基本类型的引用语法，int永远是值传递，不能像CPP那样通过添加&来实现引用传递
+    ```java
+    void getSum(int sum, int n) {
+        for(int i=1; i<=n; i++)
+            if(i%2==0)
+                sum -= i;
+            else
+                sum += i;
+    }
+    // CPP里可以通过引用传递来实现函数类修改参数并产生影响
+    void getSum(int &sum, int n) {...}
+    // java里若必须这样，只能通过数组
+    void getSum(int[] sum, int n) {...}
+    ```
+15. java的while(...)，do...while(...)和CPP一样
+16. 一个正整数取个位`res=num%10`，去除个位`num/=10`
