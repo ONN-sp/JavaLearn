@@ -33,7 +33,7 @@
       * 有自己的栈内存
       * 可以 = null
 4. Java的注释语法和C++/C是一样的，用"//"
-5. Java中的所有引用类型的变量指向的都是对象（Java中一切能new 出来的东西，都是对象）（对象≠引用类型变量）
+5. <mark>Java中的所有引用类型的变量指向的都是对象（Java中一切能new出来的东西，都是对象）（对象≠引用类型变量）</mark>
     ```java
     Student stu = new Student();
    // stu 是引用类型变量，stu指向一个new出来的Student对象

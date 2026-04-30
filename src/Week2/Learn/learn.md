@@ -126,3 +126,6 @@
     ```
 15. java的while(...)，do...while(...)和CPP一样
 16. 一个正整数取个位`res=num%10`，去除个位`num/=10`
+17. break不能单独出现，只能写在switch或循环中，表示结束、跳出的意思
+18. Java中的java.lang是默认基础核心包，编译器自动隐式导入，不用手写import。编译器在编译每个.java文件时，默认自动加上导入这个库。而里面所有的类，如：Math、String、Integer、Object等可以直接用
+19. Random库中`.nextInt()`默认是在int的取值范围之内获取随机数。`.nextInt(n)`会产生一个随机数范围为0~n-1；`.nextInt(n, m)`产生一个随机数范围为n~m-1，此种写法是在JDK17后出现的
