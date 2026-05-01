@@ -289,7 +289,7 @@
 47. 企业开发中大多都是一个类对应一个java文件
 48. 输出方式：
     * System.out
-      * System.out.print():不换行
+      * System.out.print():不换行。也可以直接在输出的时候用`+`进行字符串相加，如:`System.out.print(j+"*"+i+"="+j*i+" ");`
       * System.out.println():换行。如：System.out.println("hello "+value):左边是固定字符串，右边是变量，Java会自动把它们连成一个完整字符串再输出
       * System.out.printf():格式化输出(类似C)
 49. 输入方式：
