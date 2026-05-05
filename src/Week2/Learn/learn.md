@@ -143,7 +143,7 @@
         ...
     }
     ```
-21. Java撒子那种简单输出换行方式
+21. Java的简单输出换行方式
     * `System.out.println()`:其中println=print+line，会自动换行
     * `System.out.print("\n")`:手动换行
     * `System.out.println()`
