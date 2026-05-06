@@ -17,7 +17,7 @@
 7. Java的数组越界会报错,CPP不会报错，而是未定义行为，只有`.at()`才会检查是否越界
 8. Java中专门用来操作数组的工具类`Arrays`，这是`java.util`包下的类，全是静态方法们之间`Arrays.xxx()`就能用，不用new对象。`Arrays`专门是给数组打工的工具类，排序、查找、转字符串、复制、求最值等
    * 排序：`Arrays.sort(arr)`
-   * 二分查找：`Arrays.binarySearch(arr, 5)`，需要先排好序才能用
+   * 二分查找：`Arrays.binarySearch(arr, 5)`，(默认是需要升序)。需要先排好序才能用。找不到返回一个负数"-（插入点）-1"，插入点指的是比目标大的第一个元素的位置（按降序规则二分查找：`int idx = Arrays.binarySearch(arr, 5, Collections.reverseOrder());`）
    * 转字符串：`Arrays.toString(arr)`
    * 复制：`Arrays.copyOf(arr, 5)`
    * 填充：`Arrays.fill(arr, 5)`
@@ -32,3 +32,6 @@
     * 类可以实现接口，然后重写接口里的所有方法
     * 接口不能new对象，只能被实现、被当作引用类型用 
 11. 函数式接口：只有且仅有1个抽象方法的接口，抽象方法就是只有方法名没有方法体的方法，java自带的函数式接口：`Runnable`、`Comparator`、`Consumer`、`Function`、`Predicate`等
+12. 方法：程序中的独立功能，也是最小的执行单元
+13. 需要被重复调用、main方法里代码太长、功能独立能单独拎出来、需要给别人调用多出共用、为了简化逻辑分层清晰后时可写为方法
+14. 方法调用处如果需要将这个结果后续继续做其它事情，就要在方法里return
