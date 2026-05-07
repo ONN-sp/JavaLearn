@@ -35,3 +35,28 @@
 12. 方法：程序中的独立功能，也是最小的执行单元
 13. 需要被重复调用、main方法里代码太长、功能独立能单独拎出来、需要给别人调用多出共用、为了简化逻辑分层清晰后时可写为方法
 14. 方法调用处如果需要将这个结果后续继续做其它事情，就要在方法里return
+15. 方法重载：同一个类里，方法名相同，参数列表（类型、个数、顺序）不同，返回值类型可以相同也可以不同。同一个类里，方法名相同，参数列表不同的方法就是方法重载（注意：不看返回值类型）
+16. 重载方法调用需要注意：
+   ```java
+   public class Demo10 {
+       static void main() {
+           int a = 10;
+           int b = 20;
+           System.out.println(getSum(a,b));
+       }
+   //    public static double getSum(int a, int b) {
+   //        return a+b;
+   //    }
+       public  static double getSum(int a, double b) {
+           return a+b;
+       }
+       public static double getSum(double a, int b) {
+           return a+b;
+       }
+       public static double getSum(double a, double b) {
+           return a+b;
+    }
+    // 此时方法调用会报错，因为此时没有实参-形参一一对应的那个方法。int到double的转换虽然可以隐式自动进行，
+    // 但是此时getSum(int, double)和getSum(double, int)都是需要实参一次隐式向上转换的，所以无法确定使用哪个，从而报错
+   ```
+17. 调用方法会优先调用形参和实参一一对应的，如果没有才会进行隐式转换

@@ -50,7 +50,7 @@
     * if
     * if-else
     * if-else if-else
-7. switch语句表达式的数据类型必须为byte, short, char, int, String, enum
+7. switch语句表达式的数据类型必须为byte, short, char, int, String, enum，不能是范围、不能写不等式
 8. switch中的case和default位置可以anywhere。switch的判断是从上往下顺序判断，一旦匹配到就执行，并跳出switch
 9. switch的default是可以省略的
 10. switch的case穿透：case穿透就是switch中匹配好了的case后面的代码还是会继续执行，直到遇到break或者switch结束。具体产生原因：在执行语句体的时候没有看到break
@@ -69,6 +69,13 @@
     }
     ```
     * case后面可以写多个值
+    ```java
+    switch(switchFlag) {
+        case 1 -> System.out.println("快递价格是：" + getPriceOne(weight));
+        case 2, 3, 4, 5, 6 -> System.out.println("快递价格是：" + getPriceMoreOne(weight));
+        default -> System.out.println("快递价格是：" + getPriceMoreFive(weight));
+    }
+    ```
     * switch可以有运行结果
     * yield关键字(CPP没有)：这是和switch可以有运行结果一起用的
     ```java
