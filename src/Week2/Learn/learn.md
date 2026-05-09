@@ -135,7 +135,7 @@
 16. 一个正整数取个位`res=num%10`，去除个位`num/=10`
 17. break不能单独出现，只能写在switch或循环中，表示结束、跳出的意思
 18. Java中的java.lang是默认基础核心包，编译器自动隐式导入，不用手写import。编译器在编译每个.java文件时，默认自动加上导入这个库。而里面所有的类，如：Math、String、Integer、Object等可以直接用
-19. Random库中`.nextInt()`默认是在int的取值范围之内获取随机数。`.nextInt(n)`会产生一个随机数范围为0~n-1；`.nextInt(n, m)`产生一个随机数范围为n~m-1，此种写法是在JDK17后出现的
+19. Random库中`.nextInt()`默认是在int的取值范围之内获取随机数。`.nextInt(n)`会产生一个随机数范围为0~n-1。`.nextInt(n)`中n为0会报错。`.nextInt(n, m)`产生一个随机数范围为n~m-1，此种写法是在JDK17后出现的。`.nextInt(n, m)`中m不能小于等于n
 20. `scanner.hasNextInt()`用于检查输入的是不是整数，它会阻塞，会接收一次键盘输入，如果此时输入的不是整数，`scanner.next()`会把错误的输入给吃掉，清空缓冲区。其一种应用如下：
     ```java
     // 检查输入的是不是整数，如果是整数
