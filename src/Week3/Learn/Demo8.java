@@ -1,5 +1,6 @@
 package Week3.Learn;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Demo8 {
@@ -19,10 +20,12 @@ public class Demo8 {
             System.out.println(num);
     }
     boolean isExist(int[] arr, int num, int endIndex) {
-        for(int j=0;j<endIndex;++j) {// 只遍历前面已经生成的数字
-            if (arr[j] == num)
-                return true;
-        }
-        return false;
+        boolean has = Arrays.stream(arr).anyMatch(x -> x == num);
+        return has;
+//        for(int j=0;j<endIndex;++j) {// 只遍历前面已经生成的数字
+//            if (arr[j] == num)
+//                return true;
+//        }
+//        return false;
     }
 }

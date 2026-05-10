@@ -47,7 +47,10 @@
 15. `Deque`是Java接口，即能当队列用，也能当栈用。`Deque`是接口，所以不能new，需要用`Deque`的实现类来new，`Deque`的实现类有：`ArrayDeque`、`LinkedList`、`ConcurrentLinkedDeque`
 16. <mark>java中有传统`Stack`类，它继承子vector，老旧，线程安全、性能差，不推荐，可以用`Deque`来充当栈用，此时`push()/pop()`都是操作这个双端队列的头部，即相当于操作栈了</mark>
 17. `Deque`做栈时：
-   * `push`
-   * `pop`
-   * `peek`
-   * `isEmpty`
+    * `push`
+    * `pop`
+    * `peek`
+    * `isEmpty`
+18. `Deque<Integer> stack = new ArrayDeque<>();`这和CPP中的向上类型转换（自动进行）是一样的，父类的引用可以直接指向子类对象
+19. 为什么使用`Deque<Integer> stack = new ArrayDeque<>();`定义栈，而不是`ArrayDeque<Integer> stack = new ArrayDeque<>();`?
+    后者也是可以的，此时也是可以直接用`push/pop/peel/isEmpty`，但是行业中更通用面向接口来写，因为这样更灵活，假如你一开始用 ArrayDeque 做栈， 以后想换成 LinkedList 做栈： 如果左边是 Deque（接口），只改右边就行

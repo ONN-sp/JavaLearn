@@ -25,18 +25,29 @@
    * 获取最小值：`Arrays.stream(arr).min()`
    * 获取和：`Arrays.stream(arr).sum()`:返回的是数组对应的基本类型
    * 比较相等：`Arrays.equals(arr1, arr2)`
+   * 截取数组：`Arrays.steram(arr).limit(5)`:只取前5个;`Arrays.stream(arr).skipo(2).limit(3)`:跳过前2个，只取后3个
    * 判断数组是否能存在某个元素：`boolean has = Arrays.stream(arr).anyMatch(x -> x == target)`;`.anyMatch()`表示流里任意一个元素满足条件就返回true,`x->x==target`是java的Lambda表达式，x表示数组里的每一个元素，`x==target`就是判断当前元素是不是等于目标值
 9. Java的Lambda表达式`(参数列表)->{方法体}`,CPP是`[捕获列表](参数列表)->返回值类型{函数体};`。java的Lambda表达式是一个函数式接口的实例对象，它本身没有独立类型，自动匹配并返回函数式接口类型。函数式接口比如：`Runnable`、`Comparator`、`Consumer`、`Function`、`Predicate`，Lambda 就是用来快速创建这类接口对象的简写，`.anyMatch()`就是`IntPredicate`接口的一个实例对象
-10. java中接口就是一份行为规范/协议清单，只定义要做什么方法，不写方法具体实现 
+10. java的lambda表达式参数列表可以省略括号、类型
+   ```java
+   // 标准
+   (String s) -> System.out.println(s);
+   // 简写（省括号、省类型）
+   s -> System.out.println(s);
+   ```
+11. `boolean has = Arrays.stream(arr).anyMatch(x -> x == target)`中lambda表达式详解
+12. `x -> x == target`是函数式接口`IntPredicate`的实例对象，完全展开是：`IntPredicate r = x -> x == target;`
+13. `anyMatch`会把数组arr中的每一个元素都去判断是否满足条件
+14. java中接口就是一份行为规范/协议清单，只定义要做什么方法，不写方法具体实现 
     * 里面全是抽象方法，只有方法名，没有方法体
     * 类可以实现接口，然后重写接口里的所有方法
     * 接口不能new对象，只能被实现、被当作引用类型用 
-11. 函数式接口：只有且仅有1个抽象方法的接口，抽象方法就是只有方法名没有方法体的方法，java自带的函数式接口：`Runnable`、`Comparator`、`Consumer`、`Function`、`Predicate`等
-12. 方法：程序中的独立功能，也是最小的执行单元
-13. 需要被重复调用、main方法里代码太长、功能独立能单独拎出来、需要给别人调用多出共用、为了简化逻辑分层清晰后时可写为方法
-14. 方法调用处如果需要将这个结果后续继续做其它事情，就要在方法里return
-15. 方法重载：同一个类里，方法名相同，参数列表（类型、个数、顺序）不同，返回值类型可以相同也可以不同。同一个类里，方法名相同，参数列表不同的方法就是方法重载（注意：不看返回值类型）
-16. 重载方法调用需要注意：
+15. 函数式接口：只有且仅有1个抽象方法的接口，抽象方法就是只有方法名没有方法体的方法，java自带的函数式接口：`Runnable`、`Comparator`、`Consumer`、`Function`、`Predicate`等
+16. 方法：程序中的独立功能，也是最小的执行单元
+17. 需要被重复调用、main方法里代码太长、功能独立能单独拎出来、需要给别人调用多出共用、为了简化逻辑分层清晰后时可写为方法
+18. 方法调用处如果需要将这个结果后续继续做其它事情，就要在方法里return
+19. 方法重载：同一个类里，方法名相同，参数列表（类型、个数、顺序）不同，返回值类型可以相同也可以不同。同一个类里，方法名相同，参数列表不同的方法就是方法重载（注意：不看返回值类型）
+20. 重载方法调用需要注意：
    ```java
    public class Demo10 {
        static void main() {
@@ -59,4 +70,4 @@
     // 此时方法调用会报错，因为此时没有实参-形参一一对应的那个方法。int到double的转换虽然可以隐式自动进行，
     // 但是此时getSum(int, double)和getSum(double, int)都是需要实参一次隐式向上转换的，所以无法确定使用哪个，从而报错
    ```
-17. 调用方法会优先调用形参和实参一一对应的，如果没有才会进行隐式转换
+21. 调用方法会优先调用形参和实参一一对应的，如果没有才会进行隐式转换
