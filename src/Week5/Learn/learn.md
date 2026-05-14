@@ -5,7 +5,7 @@
     * 其他所有类只写功能、不写 main
     * 其他类只写：属性、方法、功能逻辑
 4. 同一个目录下的java中的类是可以不用import，而是直接使用的
-5. 描述一类事务的类叫JavaBean类，Javabean类可以写属性和方法。Javabean类的属性不能是static
+5. 描述一类事务的类叫JavaBean类，Javabean类可以写属性和方法。Javabean类的属性不能是static。标准JavaBean类要求私有化成员变量，并且提供getter和setter方法、构造方法、其它成员方法
 6. 带有main方法的类叫测试类
 7. <mark>类中对于私有成员变量，一般都需要写对应的`public`的`set/get`方法</mark>
 8. 使用变量，会使用就近原则，先在方法中看是否有局部变量，如果没有才会去看成员变量，重名时就会用this引用
