@@ -7,9 +7,9 @@ public class LocalDelivery extends Delivery {
     public LocalDelivery() {
 
     }
-    @Override
-    public int calculateCost() {
-        int OldCost = super.calculateCost();
-        return OldCost+10;
-    }
+//    @Override
+//    public int calculateCost() {
+//        int OldCost = super.calculateCost();
+//        return OldCost+10;
+//    }
 }

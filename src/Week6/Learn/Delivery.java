@@ -35,7 +35,7 @@ public class Delivery {
     public void setReciver(String reciver) {
         this.reciver = reciver;
     }
-    public int calculateCost() {
+    public final int calculateCost() {
         return weight * 10;
     }
 }

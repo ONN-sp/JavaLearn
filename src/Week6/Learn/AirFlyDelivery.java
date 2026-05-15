@@ -7,9 +7,9 @@ public class AirFlyDelivery extends Delivery {
     public AirFlyDelivery() {
 
     }
-    @Override
-    public int calculateCost() {
-        int OldCost = super.calculateCost();
-        return OldCost+15;
-    }
+//    @Override
+//    public int calculateCost() {
+//        int OldCost = super.calculateCost();
+//        return OldCost+15;
+//    }
 }
