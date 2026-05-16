@@ -1,4 +1,4 @@
-package Week5.Learn;
+package Week5.Learn.Demo2;
 
 public class Student {
     private String name;

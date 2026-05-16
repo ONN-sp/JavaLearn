@@ -1,4 +1,4 @@
-package Week5.Learn;
+package Week5.Learn.Demo3;
 
 public enum OrderState {
     PAYMENT_PENDING("待付款"),// 隐式实例化

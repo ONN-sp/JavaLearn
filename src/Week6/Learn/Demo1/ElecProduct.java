@@ -1,4 +1,4 @@
-package Week6.Learn;
+package Week6.Learn.Demo1;
 
 public class ElecProduct extends Products{
     private String brand;

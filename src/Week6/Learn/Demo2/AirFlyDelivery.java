@@ -1,4 +1,4 @@
-package Week6.Learn;
+package Week6.Learn.Demo2;
 
 public class AirFlyDelivery extends Delivery {
     public AirFlyDelivery(String number, int weight, String reciver) {

@@ -1,4 +1,4 @@
-package Week6.Learn;
+package Week6.Learn.Demo3;
 
 public class Animal {
     private int age;

@@ -1,4 +1,4 @@
-package Week5.Learn;
+package Week5.Learn.Demo3;
 
 public class Demo3 {
     static void main() {
