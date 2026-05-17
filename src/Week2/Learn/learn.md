@@ -116,8 +116,10 @@
     System.out.println(result);
     ```
 12. java的for循环和CPP一样
-13. java里面没有<=>运算符，CPP20新增了的
-14. java里面没有对基本类型进行引用的类型，即不能对基本类型进行引用传递。CPP里是可以的，如int &a；但是java是没有基本类型的引用语法，int永远是值传递，不能像CPP那样通过添加&来实现引用传递
+13. 对于数组和集合，Java和CPP一样，也可以使用`for (int i: arr) {}`，需要注意的是：java中这种方式只能取值，不能修改数组/集合里的原元素（和CPP引用版本不一样）
+14. <mark>for增强不能直接遍历 String，因为Java 里 String 不是数组，也不是集合，不能直接放增强 for 里遍历，需要通过`for (char c: str.toCharArray()) {}`</mark>（和cpp不一样）
+15. java里面没有<=>运算符，CPP20新增了的
+16. java里面没有对基本类型进行引用的类型，即不能对基本类型进行引用传递。CPP里是可以的，如int &a；但是java是没有基本类型的引用语法，int永远是值传递，不能像CPP那样通过添加&来实现引用传递
     ```java
     void getSum(int sum, int n) {
         for(int i=1; i<=n; i++)
@@ -131,12 +133,12 @@
     // java里若必须这样，只能通过数组
     void getSum(int[] sum, int n) {...}
     ```
-15. java的while(...)，do...while(...)和CPP一样
-16. 一个正整数取个位`res=num%10`，去除个位`num/=10`
-17. break不能单独出现，只能写在switch或循环中，表示结束、跳出的意思
-18. Java中的java.lang是默认基础核心包，编译器自动隐式导入，不用手写import。编译器在编译每个.java文件时，默认自动加上导入这个库。而里面所有的类，如：Math、String、Integer、Object等可以直接用
-19. Random库中`.nextInt()`默认是在int的取值范围之内获取随机数。`.nextInt(n)`会产生一个随机数范围为0~n-1。`.nextInt(n)`中n为0会报错。`.nextInt(n, m)`产生一个随机数范围为n~m-1，此种写法是在JDK17后出现的。`.nextInt(n, m)`中m不能小于等于n
-20. `scanner.hasNextInt()`用于检查输入的是不是整数，它会阻塞，会接收一次键盘输入，如果此时输入的不是整数，`scanner.next()`会把错误的输入给吃掉，清空缓冲区。其一种应用如下：
+17. java的while(...)，do...while(...)和CPP一样
+18. 一个正整数取个位`res=num%10`，去除个位`num/=10`
+19. break不能单独出现，只能写在switch或循环中，表示结束、跳出的意思
+20. Java中的java.lang是默认基础核心包，编译器自动隐式导入，不用手写import。编译器在编译每个.java文件时，默认自动加上导入这个库。而里面所有的类，如：Math、String、Integer、Object等可以直接用
+21. Random库中`.nextInt()`默认是在int的取值范围之内获取随机数。`.nextInt(n)`会产生一个随机数范围为0~n-1。`.nextInt(n)`中n为0会报错。`.nextInt(n, m)`产生一个随机数范围为n~m-1，此种写法是在JDK17后出现的。`.nextInt(n, m)`中m不能小于等于n
+22. `scanner.hasNextInt()`用于检查输入的是不是整数，它会阻塞，会接收一次键盘输入，如果此时输入的不是整数，`scanner.next()`会把错误的输入给吃掉，清空缓冲区。其一种应用如下：
     ```java
     // 检查输入的是不是整数，如果是整数
     while (true) {
@@ -150,8 +152,8 @@
         ...
     }
     ```
-21. Java的简单输出换行方式
+23. Java的简单输出换行方式
     * `System.out.println()`:其中println=print+line，会自动换行
     * `System.out.print("\n")`:手动换行
     * `System.out.println()`
-22. 制表符：在前面的字符后面补1~4个空格(IDEA编辑器)，让前面字符+制表符的整体长度凑成4的整数倍
+24. 制表符：在前面的字符后面补1~4个空格(IDEA编辑器)，让前面字符+制表符的整体长度凑成4的整数倍
