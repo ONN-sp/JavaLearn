@@ -13,13 +13,6 @@ public class Demo7 {
         // 考虑数据过大的情况用数组
         String res = add(str1, str2);
         System.out.println(res);
-        int a = 10;
-        String s = String.valueOf(a);
-        System.out.println(s);
-        char ch = 'a';
-        String s2 = String.valueOf(ch);
-        System.out.println(s2);
-
     }
     // 模拟数字字符串加法并考虑数据过大
     public static String add(String str1, String str2) {
@@ -60,7 +53,6 @@ public class Demo7 {
         }
         for(int i=1;i<arr.length;++i)
             sb.append(arr[i]);
-        String res = sb.toString();
-        return res;
+        return sb.toString();
     }
 }
