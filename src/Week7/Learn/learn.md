@@ -47,13 +47,14 @@
     * `sb.reverse()`：翻转字符串
     * `sb.length()`：获取字符串长度
     * `sb.toString()`：将StringBuilder转换成String
-13. java中数字字符串转数字：
+13. `sb.append(name).append("：[");`和`sb.append(name + "：[");`语法上都没问题，但是后者会产生一个临时字符串，再把这个整体丢进 StringBuilde，占用内存
+14. java中数字字符串转数字：
     * `int num = Integer.parseInt(s);`
     * `Integer i = Integer.valueOf(s);`
     * `double d = Double.parseDouble(s);`
     * `Long l = Long.parseLong(s);`
-14. CPP中数字字符串转数字：`stoi`、`stod`
-15. java的整数数组转换为字符串：
+15. CPP中数字字符串转数字：`stoi`、`stod`
+16. java的整数数组转换为字符串：
     * `String s = Arrays.toString(arr)`：带括号格式 [1,2,3]
     * 纯数字拼接可以用`StringBuilder`
     ```java
@@ -77,13 +78,13 @@
         return 0;
     }
     ```
-16. 数组一旦定义后长度就定了，如果要动态自动修改其大小就要用集合，类似CPP的容器
-17. java中的集合：
+17. 数组一旦定义后长度就定了，如果要动态自动修改其大小就要用集合，类似CPP的容器
+18. java中的集合：
     * 单列集合：`ArrayList`、`LinkedList`、`Vector`、`HashSet`、`LinkedHashSet`、`TreeSet`、`ArrayDeque`、`PriorityQueue`等
     * 双列集合：`HashMap`、`LinkedHashMap`、`TreeMap`、`HashTable`、`Hashtable`等
-18. <mark>集合是无法添加基本数据类型，只能添加引用数据类型/对象，如果要在集合中一定要添加基本数据类型，就要使用包装类</mark>。这其实是泛型类的特性
+19. <mark>集合是无法添加基本数据类型，只能添加引用数据类型/对象，如果要在集合中一定要添加基本数据类型，就要使用包装类</mark>。这其实是泛型类的特性
     ![img.png](包装类.png)
-19. java也有`Vector`，但是现在基本不用，推荐用`ArrayList`，`ArrayList`底层是动态数组，其常用方法：
+20. java也有`Vector`，但是现在基本不用，推荐用`ArrayList`，`ArrayList`底层是动态数组，其常用方法：
     * 实例化集合对象：`ArrayList<E> list = new ArrayList<>();`，`ArrayList`是一个泛型类，必须加`<>`
     * 添加数据：`add(E element)`；`void add(int index, E element)`
     * 删除数据：`boolean remove(E element)`；`E remove(int index)`
@@ -93,3 +94,4 @@
     * 获取集合大小：`int size()`
     * 集合转数组：`toArray()/toArray(T[] a)`：此时只能传给Object数组，比如`ArrayList<String> list = new ArrayList<>();Object[] objs = list.toArray();`。`toArray(T[] a)`，此时需要在形参中构造成数组形式，比如：`String[] strArr = list.toArray(new String[0]);`：传空数组`new String[0]`，传入长度为 0 的数组，内部发现数组不够装，自动新建一个和集合等长的同类型数组，此时不用算长度；`String[] strArr2 = new String[list.size()];`：传等长数组`new String[list.size()]`，手动开好刚好够用的数组，多写一步算长度，麻烦
     * 集合转字符串：`toString()`
+21. <mark>增强 for（for-each）能遍历所有单列集合、双列集合值、数组</mark>
