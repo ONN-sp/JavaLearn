@@ -1,6 +1,7 @@
 package Week7.Learn.GedouFightGame.Ui;
 
 import Week7.Learn.GedouFightGame.Bean.User;
+import Week7.Learn.GedouFightGame.Ui.FightingGame;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,13 +18,14 @@ public class Login {
             System.out.println("╔════════════════════════════════╗");
             System.out.println("    🎮 欢迎来到文字格斗游戏 🎮   ");
             System.out.println("╚════════════════════════════════╝");
-            System.out.println("请选择操作：1登录 2注册 3退出");
+            System.out.println("请选择操作：1登录 2注册 3忘记密码 4退出");
             Scanner sc = new Scanner(System.in);
             String choose = sc.next();
             switch (choose) {
                 case "1" -> login(hs);
                 case "2" -> register(hs);
-                case "3" -> {
+                case "3" -> forgotPassword(hs);
+                case "4" -> {
                     System.out.println("游戏已退出");
                     System.exit(0);//停止JVM
                 }
@@ -81,6 +83,9 @@ public class Login {
             }
             else {
                 System.out.println("登录成功！欢迎回来，" + username + "~");
+                // 登录成功后启动游戏
+                FightingGame fightingGame = new FightingGame();
+                fightingGame.gameStart(username);
                 break;
             }
         }
@@ -133,6 +138,16 @@ public class Login {
             u.setPassword(password);
             break;
         }
+        while(true) {
+            System.out.println("请输入手机号：");
+            String phone = sc.next();
+            if (!checkPhone(phone)) {
+                System.out.println("手机号格式不正确，必须是11位数字且以1开头");
+                continue;
+            }
+            u.setPhone(phone);
+            break;
+        }
         hs.add(u);
         System.out.println("用户注册成功~");
     }
@@ -178,6 +193,23 @@ public class Login {
         return counts[2]==0&&counts[0]>0&&counts[1]>0;
     }
 
+    // 验证手机号格式：11位数字，以1开头
+    public boolean checkPhone(String phone) {
+        if (phone == null || phone.length() != 11) {
+            return false;
+        }
+        if (!phone.startsWith("1")) {
+            return false;
+        }
+        // 检查是否全部是数字
+        for (int i = 0; i < phone.length(); i++) {
+            if (!Character.isDigit(phone.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // 通过username获取User对象
     public User getUserByUsername(HashSet<User> hs, String username) {
         for (User u : hs) {
@@ -191,6 +223,62 @@ public class Login {
     // 判断用户名在集合中是否包含
     public boolean isContains(HashSet<User> hs, String username) {
         return getUserByUsername(hs, username) != null;
+    }
+
+    // 忘记密码功能
+    public void forgotPassword(HashSet<User> hs) {
+        System.out.println("用户选择了忘记密码操作~");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("请输入用户名：");
+        String username = "";
+        for(int i=0;i<3;++i) {
+            username = sc.next();
+            if (!isContains(hs, username)) {
+                if (i == 2) {
+                    System.out.println("用户名错误，3次输入均失败");
+                    return;
+                } else
+                    System.out.println("当前用户名" + username + "未注册，还有" + (2 - i) + "次机会重新输入");
+            }
+            else
+                break;
+        }
+        User user = getUserByUsername(hs, username);
+        System.out.println("请输入手机号：");
+        // 给三次输入手机号的机会，如果三次都错误，提示手机号错误
+        for(int i = 0; i<3; ++i) {
+            String phone = sc.next();
+            if (!user.getPhone().equals(phone)) {
+                if(i==2) {
+                    System.out.println("手机号错误，3次输入均失败");
+                    return;
+                }
+                System.out.println("手机号不正确，还有" + (2-i) + "次机会重新输入");
+            }
+            else
+                break;
+        }
+        while(true) {
+            System.out.println("请输入新密码：");
+            String newPassword = sc.next();
+            System.out.println("请确认新密码：");
+            String confirmPassword = sc.next();
+            if (!newPassword.equals(confirmPassword)) {
+                System.out.println("两次输入的密码不一致");
+                continue;
+            }
+            if (!checkLen(newPassword, 3, 8)) {
+                System.out.println("密码长度必须在3-8之间");
+                continue;
+            }
+            if (!checkPassword(newPassword)) {
+                System.out.println("密码只能由字母加数字组成，不能是纯数字，不能有其它字符");
+                continue;
+            }
+            user.setPassword(newPassword);
+            break;
+        }
+        System.out.println("密码修改成功！");
     }
 
     // 生成验证码：4个字母和1个数字

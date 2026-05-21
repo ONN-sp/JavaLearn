@@ -38,7 +38,7 @@
 8. CPP的字符转字符串可以`String(1, ch)`，但是java是不能的，java需要写为字符数组再用实例化`String`的方法，`new String(new[] char{ch})`
 9. 需要注意：字符串不可更改，因此用了字符串方法修改字符串后需要用其返回字符串进行操作，原字符串没变
 10. <mark>字符拼接不是字符串，纯字符相加 = ASCII 数值相加，不是字符串，CPP也是一样的</mark>
-11. java中`'a'*3`≠`"aaa"`，CPP中才是这样的，java中只能`"a".repeat(3)`才行
+11. java中`'a'*3`≠`"aaa"`，CPP也不行，java中只能`"a".repeat(3)`才行
 12. <mark>StringBuilder是字符串的一个工具类，可以让我们拼接字符串的时候效率更高。传统的`+`会产生很多冗余的中间数据，StringBuilder可以看作容器，此时就是把待拼接的字符串放入容器，没有中间冗余字符串</mark>
     * `StringBuilder sb = new StringBuilder()`/`tringBuilder sb = new StringBuilder(str)`
     * `sb.append(任意类型)`：添加任意类型数据，返回自身

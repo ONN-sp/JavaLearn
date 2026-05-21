@@ -385,7 +385,7 @@
       * System.out.println():换行。如：System.out.println("hello "+value):左边是固定字符串，右边是变量，Java会自动把它们连成一个完整字符串再输出
       * System.out.printf():格式化输出(类似C)
       * C/CPP中可以直接逗号分割输出，`printf(a,b)`；java是不支持这样的
-64. <mark>java和CPP中数组和String的打印：</mark>
+64. <mark>java和CPP中数组和`String`的打印：</mark>
     * java中对于非字符数组的其它数组，直接打印数组名是打印的内存哈希码，CPP也是这样
     * java中String类型可以直接打印，CPP也是这样
     * java中的字符数组直接打印数组名可以得到内容，因为java对`char[]`做了重载，遇到字符数组可以直接遍历输出字符，CPP也可以直接打印字符数组

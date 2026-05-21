@@ -6,6 +6,7 @@ public class User {
     private String id;
     private String username;
     private String password;
+    private String phone;
     private boolean status;// false表示当前用户禁用，true表示当前用户正常
 
     public User() {
@@ -13,10 +14,11 @@ public class User {
         this.status = true;
     }
 
-    public User(String id, String username, String password, boolean status) {
+    public User(String id, String username, String password, String phone, boolean status) {
         this.id = createId();
         this.username = username;
         this.password = password;
+        this.phone = phone;
         this.status = true;
     }
     // 生成随机id，"bytedance"+5位随机数
@@ -60,5 +62,13 @@ public class User {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
