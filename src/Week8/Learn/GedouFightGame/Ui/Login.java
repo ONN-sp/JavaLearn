@@ -1,7 +1,6 @@
-package Week7.Learn.GedouFightGame.Ui;
+package Week8.Learn.GedouFightGame.Ui;
 
-import Week7.Learn.GedouFightGame.Bean.User;
-import Week7.Learn.GedouFightGame.Ui.FightingGame;
+import Week8.Learn.GedouFightGame.Bean.User;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -1,6 +1,6 @@
-package Week7.Learn.GedouFightGame;
+package Week8.Learn.GedouFightGame;
 
-import Week7.Learn.GedouFightGame.Ui.Login;
+import Week8.Learn.GedouFightGame.Ui.Login;
 
 
 public class App {

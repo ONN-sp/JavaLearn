@@ -50,7 +50,7 @@
 13. `sb.append(name).append("：[");`和`sb.append(name + "：[");`语法上都没问题，但是后者会产生一个临时字符串，再把这个整体丢进 StringBuilde，占用内存
 14. java中数字字符串转数字：
     * `int num = Integer.parseInt(s);`
-    * `Integer i = Integer.valueOf(s);`
+    * `Integer i = Integer.valueOf(s);`；`Integer i = new Integer(s);`:Integer 类专门提供了接收 String 类型的构造方法和静态方法。然后`Integer=>int`:`i.intValue()`
     * `double d = Double.parseDouble(s);`
     * `Long l = Long.parseLong(s);`
 15. CPP中数字字符串转数字：`stoi`、`stod`
@@ -94,4 +94,4 @@
     * 获取集合大小：`int size()`
     * 集合转数组：`toArray()/toArray(T[] a)`：此时只能传给Object数组，比如`ArrayList<String> list = new ArrayList<>();Object[] objs = list.toArray();`。`toArray(T[] a)`，此时需要在形参中构造成数组形式，比如：`String[] strArr = list.toArray(new String[0]);`：传空数组`new String[0]`，传入长度为 0 的数组，内部发现数组不够装，自动新建一个和集合等长的同类型数组，此时不用算长度；`String[] strArr2 = new String[list.size()];`：传等长数组`new String[list.size()]`，手动开好刚好够用的数组，多写一步算长度，麻烦
     * 集合转字符串：`toString()`
-21. <mark>增强 for（for-each）能遍历所有单列集合、双列集合值、数组</mark>
+21. <mark>增强 for能遍历所有单列集合、双列集合、数组</mark>

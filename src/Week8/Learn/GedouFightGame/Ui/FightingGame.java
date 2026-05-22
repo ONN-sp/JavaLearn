@@ -1,7 +1,7 @@
-package Week7.Learn.GedouFightGame.Ui;
+package Week8.Learn.GedouFightGame.Ui;
 
-import Week7.Learn.GedouFightGame.Bean.EnemyCharacter;
-import Week7.Learn.GedouFightGame.Bean.HeroCharacter;
+import Week8.Learn.GedouFightGame.Bean.EnemyCharacter;
+import Week8.Learn.GedouFightGame.Bean.HeroCharacter;
 
 import java.util.ArrayList;
 import java.util.Random;

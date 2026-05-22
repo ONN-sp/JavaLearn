@@ -1,4 +1,4 @@
-package Week7.Learn.GedouFightGame.Bean;
+package Week8.Learn.GedouFightGame.Bean;
 
 // 表示敌人游戏人物的角色
 public class EnemyCharacter extends  Character {

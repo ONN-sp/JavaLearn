@@ -21,7 +21,7 @@
 8. <mark>泛型类：带“类型占位符”(T)的类。不把类型写死，同一个类，可以装任意不同类型</mark>
 9. <mark>java的泛型类≈CPP的模板类。需要注意的是：</mark>
    * CPP模板类：`template <class T> class 类名{}`;Java泛型类：`class 类名<T>{}`
-   * 泛型类如果不加`<>`指定类型，编译不报错，仅弹出黄色警告 等价于 List<Object>，默认存放所有类型，但是很不推荐
+   * 泛型类如果不加`<>`指定类型，编译不报错，仅弹出黄色警告，比如`List<Object>`：默认存放所有类型，但是很不推荐
    * C++的模板类会在编译时按需生成多份真实代码，vector<int> 生成一份 int 版源码；vector<string> 生成一份 string 版源码；类型在运行时完全保留，没有擦除
    * Java泛型编译后把`<T>`全部抹成`Object`，运行时根本不知道传的是`Integer`还是`String`，只是编译期做类型检查，运行时泛型消失了
    * 因为Java泛型会在编译后抹成`Object`类型，而基本类型不能向上转`Object`,因此泛型只支持引用类型
@@ -37,7 +37,7 @@
     * 定义方式：`ArrayList<int[]> maxList = new ArrayList<>()`(初始size=0)
     * `ArrayList<Integer> list = new ArrayList<>(20);`:预先给底层数组分配空间，不限制最终长度，只是减少扩容次数,此时的size还是0
     * 初始化：
-      * `rrayList<Integer> list = new ArrayList<>(List.of(1,2,3,4,5));`
+      * `ArrayList<Integer> list = new ArrayList<>(List.of(1,2,3,4,5));`
       * `ArrayList<Integer> src = new ArrayList<>();src.add(1);src.add(2);`
       * 拷贝构造：`ArrayList<Integer> list = new ArrayList<>(src);`
 12. `List.of()`是java 自带的、快速创建一个不可变固定列表的工具方法，它返回一个只读、不可修改的List(长度固定)，就是一次性写死的列表，虽然它可以用来给ArrayList初始化，但是不代表这种初始化方法的ArrayList就不是动态扩容了。`ArrayList<>(List.of ())` = 快速生成一个可修改的 ArrayList

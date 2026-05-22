@@ -1,4 +1,4 @@
-package Week7.Learn.GedouFightGame.Bean;
+package Week8.Learn.GedouFightGame.Bean;
 
 import java.util.Random;
 

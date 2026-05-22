@@ -116,7 +116,7 @@
     System.out.println(result);
     ```
 12. java的for循环和CPP一样
-13. 对于数组和集合，Java和CPP一样，也可以使用`for (int i: arr) {}`，需要注意的是：java中这种方式只能取值，不能修改数组/集合里的原元素（和CPP引用版本不一样）
+13. <mark>对于数组和单列集合，Java和CPP一样，也可以使用`for (int i: arr) {}`，需要注意的是：java中这种方式只能取值，不能修改数组/单列集合里的原元素（和CPP引用版本不一样）</mark>
 14. <mark>for增强不能直接遍历 String，因为Java 里 String 不是数组，也不是集合，不能直接放增强 for 里遍历，需要通过`for (char c: str.toCharArray()) {}`</mark>（和cpp不一样）
 15. java里面没有<=>运算符，CPP20新增了的
 16. java里面没有对基本类型进行引用的类型，即不能对基本类型进行引用传递。CPP里是可以的，如int &a；但是java是没有基本类型的引用语法，int永远是值传递，不能像CPP那样通过添加&来实现引用传递
