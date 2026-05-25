@@ -69,6 +69,10 @@
           }
           ```
       * `Set`（一个接口）系列集合：添加的元素是无序（存和取的顺序是不一致的）、不可重复、无索引
+      * `Set`的遍历方式，它继承于`Collection`，所以也可以用`Collection`的遍历方式遍历，即遍历方式有：
+        * 迭代器遍历
+        * 增强for遍历
+        * lambda表达式遍历
       * `Collection`是单列集合的祖宗接口，它的功能是全部单列集合都可以继承使用的：
         * `public boolean add(E e)`：添加一个元素
         * `public void clear()`：清空集合
@@ -78,7 +82,7 @@
         * `public boolean isEmpty()`：判断集合是否为空
         * `public void clear()`：清空集合
       * `Collection`的遍历方式：
-        * 迭代器遍历（C++ 的迭代器 = Java 的 Iterator）：迭代器（和cpp一样，可以理解为指针）在java中的类是`Iterator`，迭代器是集合专用的遍历方式，这种方式不依赖索引
+        * 迭代器遍历（C++ 的迭代器 = Java 的 Iterator）：迭代器（和cpp一样，可以理解为指针，在源码其实就是用一个`cursor`属性来记录当前遍历的位置，也就是一个指针作用）在java中的类是`Iterator`，迭代器是集合专用的遍历方式，这种方式不依赖索引
           ```java
           ArrayList<E> list = new ArrayList<>();
           Iterator<E> it = list.iterator();// E是集合list中元素的类型
@@ -96,7 +100,7 @@
           ```
           * 迭代器遍历完毕，指针不会复位
           * 循环中只能用一次next方法
-          * 迭代器遍历时，不能用集合的方法进行增加或删除，要用迭代器的方法进行增加或删除
+          * 迭代器遍历时，不能用集合的方法进行增加或删除(迭代器源码`next()`方法第一行就会用`checkForComification()`方法来判断是否使用了集合中的方法添加/删除元素，用了就会抛出并发修改异常)，要用迭代器的方法进行增加或删除
           * 如果当前位置没有元素，还要强行获取，会报`NoSuchElementException`异常
           * 普通`Iterator`遍历没有新增操作的方法，有`remove()`
         * 增强for循环遍历：底层就是迭代器，为了简化迭代器的代码书写，它是jdk5之后出现的
@@ -120,3 +124,219 @@
           ``` 
 7. <mark>遍历中需要删除元素，用迭代器；在遍历过程中需要添加元素，使用列表迭代器；单纯取值遍历优先增强for、lambda表达式；如果遍历的时候想操作索引，可以用普通for</mark>
 8. <mark>java中集合的打印：集合类都重写了`toString()`方法，会打印内部元素，因此可以直接输出集合名，而不是用`Object`类的`toString()`方法而打印内存地址码，如`ArrayList、LinkedList、HashSet、HashMap`等</mark>
+9. List：`ArrayList`、`LinkedList`、`Vector`
+10. `ArrayList`底层扩容原理（对应cpp的vector）：
+    * 利用空参创建的集合，在底层创建一个默认长度为0的数组
+    * 添加第一个元素时，底层会自动创建一个新的长度为10的数组，因此常说ArrayList底层最初是一个长度为10的数组
+    * 存满时，会自动扩容，扩容的策略是：当前数组长度的1.5倍，即新增老容量的一半
+    * 然后将原数组中的元素，复制到新数组中
+    * 如果一次性添加多个元素（`.addAll()`），1.5倍还放不下，则新创建数组的长度以实际为准，比如：
+    ```txt
+     假设现在 ArrayList 容量是 10
+     里面已经存了 10 个元素，满了
+     现在你要 一次性 addAll 添加 100 个元素
+     步骤：
+     先算 1.5 倍：10 * 1.5 = 15
+     但 15 根本放不下 100 个元素
+    （底层newLength（）源码中100>5，所以扩充100）
+     所以 不使用 1.5 倍规则
+     直接创建新数组，长度 = 10 + 100 = 110
+    ```
+11. `LinkedList`对应cpp的list，底层数据结果是双向链表，查询慢、增删快，但是如果操作的是首尾元素，那么查询也是极快，O(1)复杂度，LinkedList 内部单独存了尾节点引用，不用遍历，直接取值。常用操作首尾方法：
+    * `public void addFirst(E e)`：在链表头添加一个元素
+    * `public void addLast(E e)`：在链表尾添加一个元素
+    * `public E removeFirst()`：删除链表头元素
+    * `public E removeLast()`：删除链表尾元素
+    * `public E getFirst()`：返回链表头元素
+    * `public E getLast()`：返回链表尾元素
+12. `LinkedList`所含的双向链表：
+    ```java
+    private static class Node<E> {
+        E item;
+        Node<E> next;
+        Node<E> prev;
+        Node(Node<E> prev, E item, Node<E> next) {
+            this.prev = prev;
+            this.item = item;
+            this.next = next;
+        }
+    }
+    ```
+    ![img.png](LinkedList.png)
+13. 集合中为什么要使用泛型？
+    如果我们没有给集合指定类型，默认认为所有的数据类型都是Object类型，此时可以往集合添加任意数据类型。
+    但是此时，我们在获取数据的时候，没办法用Object类型去调用子类的特有方法（多态的弊端）。如果强转，因为我们
+    不知道集合中到底存储的是什么类型，强制转换很容易出现类型转换异常，因此推出了泛型
+14. <mark>泛型是JDK5引入的特性（jdk5之前集合中没有泛型，只能用Object类型），可以在编译阶段约束操作的数据类型，并进行检查，注意：</mark>
+    * 格式：`<数据类型1,数据类型2,...>`，可以传递多个不确定数据类型
+    * 泛型只支持引用类型，不支持基本类型，如果要使用基本类型，需要使用包装类
+    * 泛型就是为了统一数据类型而出现的
+    * java中的泛型是伪泛型，因为java是编译时类型检查，而泛型是在编译时引入的，编译时会把泛型替换为Object类型，因此在运行时JVM 虚拟机层面，不存在泛型类型信息，泛型只在编译阶段生效，程序跑起来后<T>标记彻底消失。也就是泛型擦除：Java 编译后，泛型`< >`里的类型会被删掉，全部变成`Object`类型
+    ```java
+    ArrayList<String> strList = new ArrayList<>();
+    ArrayList<Integer> intList = new ArrayList<>();
+    System.out.println(strList.getClass() == intList.getClass());  // true
+    ```
+      * 虽然编译擦除后，泛型标记消失，运行时就都是`Object`类型，此时传入`Integer`类型单从运行的角度看是不会报错的，但是这一步
+      其实连编译都通过不了，因为会先进行编译类型检查
+      ```java
+      // 最初编写的代码
+      // 编写代码，此时T视作String
+      ArrayList<String> list = new ArrayList<>();
+      list.add("java");
+      String str = list.get(0);
+      // 此时会先在编译阶段进行编译检查，必须和String匹配才能通过编译类型检查
+      list.add(123); // 编译错误，类型不匹配。试图传入 Integer，编译器直接报错，连运行的机会都没有
+
+      // 编译后擦除后，运行时就没<>了
+      // 泛型标记消失，T统一擦为Object
+      ArrayList list = new ArrayList();
+      list.add("java");
+      // 编译器自动插入强转
+      String str = (String) list.get(0);
+      ```
+      * 如果想在运行时传入存任意类型，也就是绕过编译时的检查，可以使用反射机制，比如：
+      ```java
+      // 反射机制
+      ArrayList<String> list = new ArrayList<>();
+      list.add("Hello");
+      // 获取 ArrayList 的 add 方法 —— 运行时签名是 add(Object)
+      Method addMethod = list.getClass().getMethod("add", Object.class);// 塞入一个整数 123
+      addMethod.invoke(list, 123);
+      ```
+    * 泛型可以写在类、方法、接口中
+    * 当一个类中，某个变量的数据类型不确定时，就可以定义带有泛型的类
+    * 泛型类：
+    ```java
+    修饰符 class 类名<E> {
+        // 类体
+    }
+    ```
+    * 泛型方法：方法中形参类型不确定时，可以有两种办法：
+        * 使用类名后面定义的泛型（所有方法都能用）
+        * 在方法申明上定义自己的泛型（只有本方法能用）
+        ```java
+        修饰符 <E> 返回值类型 方法名(参数列表) {
+        // 方法体
+        }
+        ```
+    * 泛型方法的调用方式：
+      *  自动推断（不用写<T>）：编译器会自动根据你传的参数判断 T 是什么类型，不用手动写类型
+      ```java
+      // 这是一个泛型方法 <T> 代表声明泛型
+      public class Test {
+      // 泛型方法：<T> 写在返回值前面
+        public static <T> T print(T t) {
+          System.out.println(t);
+          return t;
+        }
+      }
+      String s = print("Hello");
+      Integer i = print(123);
+      Double d = print(3.14);
+      ```
+      * 显式指定类型（手动写<T>）：
+      ```java
+      // 显式指定类型（手动写<T>）
+      String s = Test.<String>print("Hello");
+      Integer i = Test.<Integer>print(123);
+      ```
+      * 如果方法没有参数，编译器无法推断，必须手动写类型:
+      ```java
+      public static <T> T get() {
+        return null;
+      }
+      String s = Test.<String>get(); // 必须写 <String>
+      ```
+    * 泛型接口：两种实现方式：
+      ```java
+      修饰符 interface 接口名<E> {
+        // 接口体
+      }
+      ```
+      * 实现类给出具体的类型
+      ```java
+      public class MyArrayList implements List<String> {
+      }
+      ```
+      * 实现类延续泛型，创建实现类对象时再给出具体类型
+      ```java
+      public class MyArrayList implements List<E> {
+      }
+      MyArrayList<String> list = new MyArrayList<>();
+      ```
+    * 泛型不具备继承性，但是数据具有继承性：指定泛型的具体类型后，传递数据时，可以传入该类类型或者其子类类型
+    * 泛型的通配符：可以用来限定类型的范围
+    ```java
+    // 假设已经有Zi、Fu、Ye、Student几个类，前面三个有继承关系
+    ArrayList<Ye> list1 = new ArrayList<>();
+    ArrayList<Fu> list1 = new ArrayList<>();
+    ArrayList<Zi> list1 = new ArrayList<>();
+    ArrayList<Student> list1 = new ArrayList<>();
+    method(list1);
+    method(list2);
+    method(list3);
+    method(list4);
+    // ? extends E：表示可以传递 E 类型或者其子类类型
+    public static void method(ArrayList<? extends Ye> list) {
+    }// 此时method(list4);会报错，因为Student不是Ye的子类
+    // ? super E：表示可以传递 E 类型或者其父类类型
+    public static void method(ArrayList<? super Fu> list) {
+    }// 此时method(list3);method(list4);会报错，因为Fu和Zi不是Ye的父类
+    ```
+    * `?`为无界通配符，仅用于引用变量、参数处，不能用来定义泛型
+    * 以后如果我们在定义类、方法、接口的时候，如果类型不确定，就可以定义泛型类、方法、接口。如果类型不确定，但是能知道以后只能传递某个继承体系中的，就可以泛型的通配符
+15. 平衡二叉树 (AVL 树) 插入很可能触发复杂的节点旋转，失衡高度差超 1 就旋转修正（可以用跳表改善）
+16. 平衡二叉树是在二叉查找树（二叉搜索树/二叉排序树）的基础上，添加了高度平衡的约束，确保了插入、删除、查找等操作的效率
+17. 红黑树是一种自平衡的二叉查找树，它是一种特殊的二叉查找树，它满足了以下条件：
+    * 红黑树不是高度平衡的，它的平衡是通过”红黑规则“进行实现的：
+      * 每个节点要么是红色，要么是黑色
+      * 根节点是黑色
+      * 每个叶子节点（NiL）是黑色，实际叶子是黑色空哨兵节点，真正存储数据的是内部节点，所有末端统一挂载黑色 NIL 空节点。NIL 就是标准叶子，无数据、仅标识边界
+      * 每个红色节点的两个子节点都是黑色的
+      * 每个黑色节点的两个子节点都是红色的
+      * 每个节点到后代叶子节点的路径上，均包含相同数目的黑色节点
+    * 红黑树节点中多了一个颜色属性，用于表示节点的颜色，红色或黑色
+18. 红黑树添加节点：
+    * 默认添加的节点是红色的，因为效率高
+    * 对于根节点和非根节点有不同的规则：
+    ![img.png](红黑树添加节点.png)（”再进行判断“就是再进行规则判断当前节点）
+19. `Set`的实现类包含：
+    * HashSet：基于哈希表实现的无序、不重复、无索引的集合，线程不安全，支持快速插入、删除、查找操作
+      * 如果集合中存储的是自定义对象，必须要重写`equals()`方法和`hashCode()`方法，否则会用地址值来算哈希值
+      * `equals()`方法可以保证去重
+    * TreeSet：基于红黑树实现的有元素可排序、不重复、无索引的集合，线程不安全，支持快速插入、删除、查找操作
+      * 默认从小到大进行排序
+      * `TreeSet`的排序规则：
+        * 对于数值类型，如Integer、Double等，默认从小到大进行排序
+        * 对于字符、字符串类型：按照字符在ASCII码表中的数字升序进行排序，字符串就是从第一个字符开始比较
+        * 如果集合中存储的是自定义对象，必须要实现`Comparable`接口，并重写当中的`compareTo()`方法，否则会报错（CPP中容器的自定义比较器接收的是可调用对象，它没有接口、没有抽象方法的说法，因此和java在这是不同的）
+        ```java
+        public class Student implements Comparable<Student> {
+          @Override
+          public int compareTo(Student o) {
+            return this.age - o.age;
+          }
+        }
+        // o表示红黑树中已经存在的节点
+        ```
+    * LinkedHashSet：基于哈希表和双向链表实现的有序、不重复、无索引的集合，线程不安全，支持快速插入、删除、查找操作
+      * 底层数据结构依然是哈希表，只是每个元素又额外的多了一个双链表的机制记录存储的顺序，因此保证了存入和取出是一个顺序
+    * 在以后如果要数据去重而对存取顺序没要求，默认使用`HashSet`，其效率高于`LinkedHashSet`
+20. java中哈希表：
+    * 在jdk8之前，哈希表的实现是基于数组和链表的，而从jdk8开始，哈希表的实现是基于数组和链表和红黑树的，冲突太多会用数组+红黑树，正常情况是数组+链表，cpp也是一样的
+      * jdk8以后：
+        * 创建一个默认长度为16，默认负载因子（负载因子=已存储元素个数/哈希表容量(桶总数)）为0.75的数组，数组名为table
+        * 根据元素的哈希值跟数组的长度计算出应存入的位置，也就是根据哈希值算哈希索引：`哈希索引 = 哈希值 % 数组长度`<=>`哈希索引 = 哈希值 & (数组长度  -1)`
+        * 判断当前位置是否为null，如果是null直接存入
+        * 如果位置不是null，表示有元素，则调用`equals()`方法比较属性值
+          * jdk8以前：此时新元素存入数组，老元素挂在新元素下面
+          * jdk8以后：新元素直接挂在老元素下面
+        * 当负载因子超过负载因子阈值时，会进行数组扩容，扩容时会将数组中的元素重新哈希到新的数组中
+        * 当某个链表的长度>=8且数组的长度>=64时，会将链表自动转换为红黑树，以提高查找效率
+        ![img.png](JDK8以后的哈希表底层.png)
+    * 哈希值是根据元素的哈希函数`hashCode()`方法计算直接或间接（因为还有可能在`hashCode()`后再加工）得到的
+    * 如果没有重写`hashCode()`方法，不同对象计算出的哈希值是不同的，因为默认继承`Object`的`hashCode()`，而它是用对象地址算的
+    * 如果已经重写`hashCode()`方法，那么哈希值就是根据重写后的`hashCode()`方法计算的，此时属性值相同计算出的哈希值就一样，属性值不同计算出的哈希值也可能一样（哈希冲突）
+    * 哈希值不完全等价哈希索引，哈希值对桶数组长度取余后，得到的数组下标是哈希索引
+21. 只有集合基于哈希表才会去考虑重写`equals()`方法和`hashCode()`方法，而对于`TreeSet`这种是不需要的
