@@ -28,7 +28,8 @@
    * 泛型类语法要求必须带`<>`，左边有尖括号，右边也要有。泛型类实例化，必须保留尖括号，哪怕里面空着也不能删括号
    * 对于泛型类实例化，右边`<>`是JDK7钻石语法，可以省略重复类型，只留壳。如：`ArrayList<Integer> list = new ArrayList<>();`
 10. <mark>`Object`：它是Java中所有类的祖宗类，所有类（包括自定义）都是默认全部直接或间接继承子`Object`。`Object`类型(Object是引用类型)变量，可以接收任何对象</mark>
-11. CPP中如果需要实现数组自动扩容，即一开始不知道数组大小，可以用vector。java中用`ArrayList`平替，但是需要注意
+11. 数组类型的长度是固定的，不能改变，因此为了实现自动扩容就出现了`ArrayList`集合类
+12. CPP中如果需要实现数组自动扩容，即一开始不知道数组大小，可以用vector。java中用`ArrayList`平替，但是需要注意
     * `ArrayList`是一个泛型类
     * `ArrayList`只能装引用类型，不能装基本类型。`ArrayList<int>`是错误的，必须是`ArrayList<Integer>`或`ArrayList<int[]>`或`ArrayList<Double>`等
     * 和vector一样，`ArrayList`底层是普通数组，自动扩容原理和vector一样。查改快、中间插入删除慢
@@ -40,18 +41,18 @@
       * `ArrayList<Integer> list = new ArrayList<>(List.of(1,2,3,4,5));`
       * `ArrayList<Integer> src = new ArrayList<>();src.add(1);src.add(2);`
       * 拷贝构造：`ArrayList<Integer> list = new ArrayList<>(src);`
-12. `List.of()`是java 自带的、快速创建一个不可变固定列表的工具方法，它返回一个只读、不可修改的List(长度固定)，就是一次性写死的列表，虽然它可以用来给ArrayList初始化，但是不代表这种初始化方法的ArrayList就不是动态扩容了。`ArrayList<>(List.of ())` = 快速生成一个可修改的 ArrayList
-13. `ArrayList<Integer> list = new ArrayList<>( List.of(1,2,3) );`，分为两步：
+13. `List.of()`是java 自带的、快速创建一个不可变固定列表的工具方法，它返回一个只读、不可修改的List(长度固定)，就是一次性写死的列表，虽然它可以用来给ArrayList初始化，但是不代表这种初始化方法的ArrayList就不是动态扩容了。`ArrayList<>(List.of ())` = 快速生成一个可修改的 ArrayList
+14. `ArrayList<Integer> list = new ArrayList<>( List.of(1,2,3) );`，分为两步：
     * List.of(1,2,3) → 生成只读、固定的临时集合
     * new ArrayList<>(临时集合) → 把临时集合里的元素全部复制一份，放到全新的 ArrayList 可修改容器里。因此，不是把原对象（`List.of()`生成的还是不可修改的）变成可修改，而是复制了一份到新的可修改对象。
-14. java没有pair类的替代，cpp中可以`vector<pair<int, int>>`,但是java中如果要实现pair必须自己定义类。可以用`ArrayList<int[]>`来代替使用
-15. `Deque`是Java接口，即能当队列用，也能当栈用。`Deque`是接口，所以不能new，需要用`Deque`的实现类来new，`Deque`的实现类有：`ArrayDeque`、`LinkedList`、`ConcurrentLinkedDeque`
-16. <mark>java中有传统`Stack`类，它继承子vector，老旧，线程安全、性能差，不推荐，可以用`Deque`来充当栈用，此时`push()/pop()`都是操作这个双端队列的头部，即相当于操作栈了</mark>
-17. `Deque`做栈时：
+15. java没有pair类的替代，cpp中可以`vector<pair<int, int>>`,但是java中如果要实现pair必须自己定义类。可以用`ArrayList<int[]>`来代替使用
+16. `Deque`是Java接口，即能当队列用，也能当栈用。`Deque`是接口，所以不能new，需要用`Deque`的实现类来new，`Deque`的实现类有：`ArrayDeque`、`LinkedList`、`ConcurrentLinkedDeque`
+17. <mark>java中有传统`Stack`类，它继承子vector，老旧，线程安全、性能差，不推荐，可以用`Deque`来充当栈用，此时`push()/pop()`都是操作这个双端队列的头部，即相当于操作栈了</mark>
+18. `Deque`做栈时：
     * `push`
     * `pop`
     * `peek`
     * `isEmpty`
-18. `Deque<Integer> stack = new ArrayDeque<>();`这和CPP中的向上类型转换（自动进行）是一样的，父类的引用可以直接指向子类对象
-19. 为什么使用`Deque<Integer> stack = new ArrayDeque<>();`定义栈，而不是`ArrayDeque<Integer> stack = new ArrayDeque<>();`?
+19. `Deque<Integer> stack = new ArrayDeque<>();`这和CPP中的向上类型转换（自动进行）是一样的，父类的引用可以直接指向子类对象
+20. 为什么使用`Deque<Integer> stack = new ArrayDeque<>();`定义栈，而不是`ArrayDeque<Integer> stack = new ArrayDeque<>();`?
     后者也是可以的，此时也是可以直接用`push/pop/peel/isEmpty`，但是行业中更通用面向接口来写，因为这样更灵活，假如你一开始用 ArrayDeque 做栈， 以后想换成 LinkedList 做栈： 如果左边是 Deque（接口），只改右边就行

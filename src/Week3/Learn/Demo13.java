@@ -1,7 +1,9 @@
+package Week3.Learn;
+
 import java.util.Arrays;
 import java.util.Random;
 
-public class Demo7 {
+public class Demo13 {
     static void main() {
         String str = "abcdefghijklmnopqrstuvwxyz";
         Random random = new Random();
