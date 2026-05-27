@@ -25,7 +25,7 @@
     // o1：表示在无序序列中，
     // o2：表示在无序序列中的第二个元素
     // 返回值：如果o1大于o2，返回正数；如果o1小于o2，返回负数；如果o1等于o2，返回0；
-    // o1-o2为升序排列
+    // o1-o2为升序排
     // o2-o1为降序排列
     Arrays.sort(arr, new Comparator<Integer>() {
         @Override

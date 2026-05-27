@@ -267,7 +267,24 @@
       }
       MyArrayList<String> list = new MyArrayList<>();
       ```
-    * 泛型不具备继承性，但是数据具有继承性：指定泛型的具体类型后，传递数据时，可以传入该类类型或者其子类类型
+    * 泛型不具备继承性(如果需要可以传入子类或者其父类就要用通配符)，但是数据具有继承性：指定泛型的具体类型后，传递数据时，可以传入该类类型或者其子类类型
+    ```java
+    // 泛型不具备继承性
+    class Ye {}
+    class Zi extends Ye {}
+    // 定义方法
+    public static void test(ArrayList<Ye> list) {}
+    // 调用
+    ArrayList<Ye> list1 = new ArrayList<>();
+    ArrayList<Zi> list2 = new ArrayList<>();
+    test(list1);  // ✅ 可行
+    test(list2);  // ❌ 编译报错
+    
+    // 数据具体继承性
+    ArrayList<Ye> list = new ArrayList<>();
+    list.add(new Ye());  // ✅ 父类本身
+    list.add(new Zi());  // ✅ 子类对象
+    ```
     * 泛型的通配符：可以用来限定类型的范围
     ```java
     // 假设已经有Zi、Fu、Ye、Student几个类，前面三个有继承关系
@@ -472,3 +489,15 @@
     TreeNode<K, V> right;// 指向右子节点的引用针/地址值
     boolean red;// 是否为红色节点
     ```
+34. JDK5提出了可变参数，可以用来解决方法参数数量不确定的问题
+    * 可变参数的定义：`数据类型... 参数名`
+    ```java
+    public static void test(int... args) {
+        for(int i = 0; i < args.length; i++) {
+            System.out.println(args[i]);
+        }
+    }
+    ```
+    * 可变参数底层就是一个数组
+    * 在方法的形参中最多只能写一个可变参数
+    * 可变参数必须放在其它形参的最后面
