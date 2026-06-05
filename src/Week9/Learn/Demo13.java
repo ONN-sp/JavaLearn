@@ -6,6 +6,8 @@ public class Demo13 {
     static void main() {
         Demo13 demo13 = new Demo13();
         demo13.test();
+        int[] arr = {1,2,3,4,5};
+        int[] arr2 = new int[5];
     }
     static void show(){
         System.out.println("show");
