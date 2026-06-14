@@ -67,6 +67,10 @@
    s -> {System.out.println(s);}
    // 如果只有一个参数，且方法体只有一行，那么大括号、分号，return都可以省略，这三个需要同时一起省略
    s -> System.out.println(s);
+
+   (Tuple2<String, Integer> value) -> { return value.f0;}
+    // 可以简写，当大括号不写，那么return也不用写
+    value -> value.f0;
    ```
 18. `boolean has = Arrays.stream(arr).anyMatch(x -> x == target)`中lambda表达式详解
     * `x -> x == target`是函数式接口`IntPredicate`的实例对象，完全展开是：`IntPredicate r = x -> x == target;`

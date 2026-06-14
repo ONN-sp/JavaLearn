@@ -177,7 +177,27 @@
     ```java
     ArrayList<String> strList = new ArrayList<>();
     ArrayList<Integer> intList = new ArrayList<>();
-    System.out.println(strList.getClass() == intList.getClass());  // true
+    System.out.println(strList.getClass() == intList.getClass());  // 运行时ArrayList内都是Object类型，所以是true
+    // 运行时变成了：
+    ArrayList strList = new ArrayList();
+    ArrayList intList = new ArrayList();
+    ```
+    泛型擦除后，是可以通过左边变量类型推断出右边擦除后的类型，但是，对于链式调用是无法推断出来的，因为链式调用的过程中编译器还没拿到右边变量的类型就无法向后推断：
+    ```java
+    // 链式调用必须显示指定类型，无法成功从左边推断类型
+    KafkaSourceBuilder<String> kafkasource = KafkaSource.builder()
+                .setBootstrapServers("hadoop1.2:9092")
+                .setGroupId("example")
+                .setTopics("topic_1")
+                .setValueOnlyDeserializer(new SimpleStringSchema())
+                .setStartingOffsets(OffsetsInitializer.earliest());
+    
+    KafkaSourceBuilder<String> kafkasource = KafkaSource<String>builder()
+                .setBootstrapServers("hadoop1.2:9092")
+                .setGroupId("example")
+                .setTopics("topic_1")
+                .setValueOnlyDeserializer(new SimpleStringSchema())
+                .setStartingOffsets(OffsetsInitializer.earliest());
     ```
       * 虽然编译擦除后，泛型标记消失，运行时就都是`Object`类型，此时传入`Integer`类型单从运行的角度看是不会报错的，但是这一步
       其实连编译都通过不了，因为会先进行编译类型检查

@@ -167,7 +167,7 @@
     ```java
     if (obj instanceof 类名/接口名) {}
     ```
-52. <mark>抽象方法：将共性的方法抽取到父类后。因为每一个子类的方法体是不一样，所以在父类中不能确定具体的方法体。该方法就可以定义为抽象方法（类似cpp的纯虚函数）</mark>
+52. <mark>抽象方法：将共性的方法抽取到父类后。因为每一个子类的方法体是不一样，所以在父类中不能确定具体的方法体，只有方法名没有方法体。该方法就可以定义为抽象方法（类似cpp的纯虚函数）</mark>
     ```java
     public abstract 返回值类型 方法名(参数列表)
     ```
@@ -368,7 +368,7 @@
         }
       }
       ```
-    * 匿名内部类:一个没有名字的内部类。在继承一个类或者实现一个接口的时候少写一个java文件，这也是Lambda表达式的前提。定义格式：
+    * 匿名内部类:一个没有名字的内部类。在继承一个类或者实现一个接口的时候少写一个java文件，这也是Lambda表达式的前提，专门用来快速创建接口/类的实现/继承对象，不用单独写一个.java 类文件。定义格式：
       ```java
       new 类名或者接口名() {
         重写方法;
@@ -378,7 +378,7 @@
       ![img.png](匿名内部类.png)
       ```java
       public interface Swim {
-        void Swim();
+        void swim();
       }
       public class Demo5 {
         static void main() {
@@ -386,13 +386,13 @@
             goSwimming(stu);
             goSwimming(new Student(){
                 @Override
-                public void Swim() {
+                public void swim() {
                     System.out.println("学生1正在游泳");
                 }
-            });// 用匿名内部类创建对象传入，此时就不需要Student.java文件了
-            Swim s = new Swim() {
+            });// 用匿名内部类创建对象传入，此时就不需要用于实现Swim接口的Student.java文件了
+            Swim s = new Swim() {// 接口实现的多态
                 @Override
-                public void Swim() {
+                public void swim() {
                     System.out.println("学生2正在游泳");
                 }
             };
