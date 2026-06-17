@@ -422,9 +422,13 @@
     map.put(name, map.get(name)+1);
     // 下面是错的
     map.get(name)++;
+    // java不能像cpp那样赋值
+    map[name] = 10;// 这是错的
     ```
     ```cpp
-    map[name]++;// 这是对的
+    unordered_map<String, int> mm;
+    mm["apple"] = 10;// 这是对的
+    mm["apple"]++;// 这是对的
     ```
     cpp可以是因为`map[key]`返回的是`value`的引用，所以可以直接修改，而`map.get(key)`返回的是`value`的副本，所以不能直接修改
 30. <mark>双列集合</mark>
