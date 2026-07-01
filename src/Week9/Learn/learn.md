@@ -481,7 +481,7 @@
         * 由键决定，它是无序、不重复（如果通过键发现添加重复的键值对，会覆盖旧的值）、无索引的
         * 底层基于哈希表，它是以`Entry`对象进行存储的
         * 保证键唯一，与值无关系
-      * `LinkedHashMap`：基于哈希表和双向链表实现的双列集合
+      * `LinkedHashMap`：基于哈希表和双向链表实现的双列集合（如果希望存入什么顺序，遍历就是什么顺序，选 LinkedHashMap）
         * 由键决定：有序、不重复、无索引，这里的有序指的是保证存储和取出的元素顺序一致。和`HashSet`一样底层数据结构依然是哈希表，只是每个键值对元素又额外的多了一个双链表的机制记录存储的顺序，因此保证了存入和取出是一个顺序
       * `TreeMap`：底层跟`TreeSet`一样，都是基于红黑树实现的
         * 由键决定：可排序、不重复、无索引
@@ -493,8 +493,16 @@
         * 无序 
         * 古老、笨重、慢 → 现在不用了
 31. <mark>如果需要使用线程安全的双列集合，可以使用`ConcurrentHashMap`</mark>，它是线程安全的双列集合，继承自 AbstractMap，是 Map 体系的一员
-32. 如果需求没有要求对结果进行排序，默认优先使用`HashMap`。如果要求对结果进行排序，就使用`TreeMap`
-33. `HashMap`源码部分理解：
+32. <mark>如果需求没有要求对结果进行排序，默认优先使用`HashMap`。如果要求对结果进行排序，就使用`TreeMap`</mark>
+33. <mark>HashMap 本身无序，没有自带排序 API，如果`HashMap`需要排序则要利用`List`：取出所有键值对 → 转 List 排序</mark>
+    ```java
+    ArrayList<Tuple2<String, Integer>> datas = new ArrayList<>();
+            // 遍历hashmap赋值给list
+            for (String s : vcCountMap.keySet())
+                datas.add(Tuple2.of(s, vcCountMap.get(s)));
+            datas.sort((o1, o2) -> o2.f1 - o1.f1);
+    ```
+34. `HashMap`源码部分理解：
     * 
     * 链表中的键值对对象：
     ```java
@@ -513,7 +521,7 @@
     TreeNode<K, V> right;// 指向右子节点的引用针/地址值
     boolean red;// 是否为红色节点
     ```
-34. JDK5提出了可变参数，可以用来解决方法参数数量不确定的问题
+35. JDK5提出了可变参数，可以用来解决方法参数数量不确定的问题
     * 可变参数的定义：`数据类型... 参数名`
     ```java
     public static void test(int... args) {
